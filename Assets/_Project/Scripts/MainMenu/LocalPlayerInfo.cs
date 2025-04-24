@@ -1,4 +1,6 @@
 using System;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 
 [Serializable]
 public static class LocalPlayerInfo
@@ -15,6 +17,7 @@ public static class LocalPlayerInfo
         set
         {
             name = value;
+            PhotonNetwork.LocalPlayer.NickName = value;
             OnLocalPlayerNameChanged?.Invoke();
         }
     }
@@ -25,6 +28,11 @@ public static class LocalPlayerInfo
         set
         {
             iconIndex = value;
+            Hashtable playerProperties = new Hashtable
+            {
+                ["icon"] = iconIndex
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
             OnLocalPlayerIconChanged?.Invoke();
         }
     }

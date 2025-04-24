@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,11 +69,21 @@ public class MainMenuUIController : MonoBehaviour
     private void OnCreateGamePressed()
     {
         // Open Game Creation
+        RoomOptions roomOptions = new RoomOptions
+        {
+            MaxPlayers = 8,
+            PublishUserId = true
+        };
+
+        PhotonNetwork.CreateRoom("DEMO_ROOM", roomOptions);
+        windowManager.ShowWindow("WAITING_ROOM_WINDOW");
     }
 
     private void OnJoinGamePressed()
     {
         // Open Game Join
+        PhotonNetwork.JoinRoom("DEMO_ROOM");
+        windowManager.ShowWindow("WAITING_ROOM_WINDOW");
     }
 
     private void ChangeLocalPlayerIcon()

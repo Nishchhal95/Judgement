@@ -5,12 +5,12 @@ public abstract class GameWindow : MonoBehaviour
 {
     [SerializeField] private Button closeButton;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         closeButton.onClick.AddListener(Hide);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         closeButton.onClick.RemoveListener(Hide);
     }
