@@ -71,11 +71,13 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void ShuffleCards()
+    public void ShuffleCards(int seed)
     {
-        for (int i = deckCards.Count - 1; i >= 0; --i)
+        System.Random rng = new System.Random(seed);
+        int n = deckCards.Count;
+        for (int i = n - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1);
+            int j = rng.Next(i + 1);
             (deckCards[i], deckCards[j]) = (deckCards[j], deckCards[i]);
         }
     }

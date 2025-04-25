@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WatiingPlayersGameWindow : GameWindow
 {
@@ -9,6 +10,7 @@ public class WatiingPlayersGameWindow : GameWindow
     [SerializeField] private WaitingPlayerMenuUI waitingPlayerMenuUIPrefab;
     [SerializeField] private Transform content;
     [SerializeField] private GameInfo gameInfo;
+    [SerializeField] private Button startGameButton;
 
     private Dictionary<Player, WaitingPlayerMenuUI> playerToPlayerUIMap = new Dictionary<Player, WaitingPlayerMenuUI>();
 
@@ -16,9 +18,12 @@ public class WatiingPlayersGameWindow : GameWindow
     {
         base.OnEnable();
         
+        startGameButton.gameObject.SetActive(false);
         PhotonNetworkManager.OnLocalPlayerJoinedRoom += OnLocalPlayerJoinedRoom;
         PhotonNetworkManager.OnPlayerJoinedRoom += OnPlayerJoinedRoom;
         PhotonNetworkManager.OnPlayerLeaveRoom += OnPlayerLeftRoom;
+        
+        startGameButton.onClick.AddListener(OnStartGamePressed);
     }
 
     protected override void OnDisable()
@@ -28,10 +33,15 @@ public class WatiingPlayersGameWindow : GameWindow
         PhotonNetworkManager.OnLocalPlayerJoinedRoom -= OnLocalPlayerJoinedRoom;
         PhotonNetworkManager.OnPlayerJoinedRoom -= OnPlayerJoinedRoom;
         PhotonNetworkManager.OnPlayerLeaveRoom -= OnPlayerLeftRoom;
+
+        startGameButton.onClick.RemoveListener(OnStartGamePressed);
+
     }
     
     private void OnLocalPlayerJoinedRoom()
     {
+        startGameButton.gameObject.SetActive(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient);
+        
         //Show Local Player First
         WaitingPlayerMenuUI playerUI = Instantiate(waitingPlayerMenuUIPrefab, content);
         playerUI.Initialize(PhotonNetwork.LocalPlayer.NickName, gameInfo.iconSprites[LocalPlayerInfo.IconIndex]);
@@ -75,6 +85,12 @@ public class WatiingPlayersGameWindow : GameWindow
         
         Destroy(waitingPlayerMenuUI.gameObject);
         playerToPlayerUIMap.Remove(player);
+    }
+
+    private void OnStartGamePressed()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(1);
     }
 
     public override string GetWindowId()

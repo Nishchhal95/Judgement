@@ -22,4 +22,5 @@ public enum Suit
     Hearts = 1,
     Diamonds = 2,
     Clubs = 3,
+    No_Trump = 4,
 }

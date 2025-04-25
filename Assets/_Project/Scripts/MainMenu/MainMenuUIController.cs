@@ -12,9 +12,11 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private Button joinGameButton;
     [SerializeField] private GameInfo gameInfo;
     [SerializeField] private WindowManager windowManager;
+    [SerializeField] private LoadingUI loadingUI;
     
     private void OnEnable()
     {
+        PhotonNetworkManager.OnConnectedToPhotonLobby += ConnectedToPhotonLobby;
         playerNameInputField.onValueChanged.AddListener(OnPlayerInputFieldValueChanged);
         
         playerIconButton.onClick.AddListener(OnPlayerIconButtonPressed);
@@ -28,6 +30,7 @@ public class MainMenuUIController : MonoBehaviour
 
     private void OnDisable()
     {
+        PhotonNetworkManager.OnConnectedToPhotonLobby -= ConnectedToPhotonLobby;
         playerNameInputField.onValueChanged.RemoveListener(OnPlayerInputFieldValueChanged);
         
         playerIconButton.onClick.RemoveListener(OnPlayerIconButtonPressed);
@@ -46,6 +49,13 @@ public class MainMenuUIController : MonoBehaviour
         ChangeLocalPlayerIcon();
         
         UpdateGameButtonsState();
+
+        loadingUI.gameObject.SetActive(true);
+    }
+    
+    private void ConnectedToPhotonLobby()
+    {
+        loadingUI.gameObject.SetActive(false);
     }
 
     private void OnPlayerInputFieldValueChanged(string newValue)
