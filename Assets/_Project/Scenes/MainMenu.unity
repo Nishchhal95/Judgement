@@ -420,7 +420,6 @@ MonoBehaviour:
   joinGameButton: {fileID: 422144409}
   gameInfo: {fileID: 11400000, guid: 3eae6e714bbd75c4380f227f05beaa05, type: 2}
   windowManager: {fileID: 98215695}
-  loadingUI: {fileID: 1687009249}
 --- !u!114 &98215695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +435,7 @@ MonoBehaviour:
   gameWindows:
   - {fileID: 1974152783}
   - {fileID: 1863314077}
+  - {fileID: 1687009249}
 --- !u!1 &118470753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,6 +2500,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1cf62f55363e47419613ce3d834d8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 0}
+  root: {fileID: 1687009245}
+  mainWindow: {fileID: 535610709}
   backgroundImage: {fileID: 535610711}
   loadingText: {fileID: 708659255}
 --- !u!1 &1720228733
@@ -3287,6 +3290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 1551477864}
+  root: {fileID: 1863314075}
+  mainWindow: {fileID: 1751117952}
   waitingPlayerMenuUIPrefab: {fileID: 8678646947630811018, guid: cade7f6c802a96e40b1b7b8ef41062dc, type: 3}
   content: {fileID: 1723243220}
   gameInfo: {fileID: 11400000, guid: 3eae6e714bbd75c4380f227f05beaa05, type: 2}
@@ -3517,6 +3522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 755920502}
+  root: {fileID: 1974152781}
+  mainWindow: {fileID: 996525115}
   gameInfo: {fileID: 11400000, guid: 3eae6e714bbd75c4380f227f05beaa05, type: 2}
   content: {fileID: 626818116}
   buttonPrefab: {fileID: 9109310742689642090, guid: 04cbc8d7ace0852468e1dee969806aed, type: 3}

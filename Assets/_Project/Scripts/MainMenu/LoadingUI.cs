@@ -4,23 +4,30 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour
+public class LoadingUI : GameWindow
 {
     private const string DEFAULT_TEXT = "Connecting";
     
     [SerializeField] private Image backgroundImage;
     [SerializeField] private TMP_Text loadingText;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         SetText(new StringBuilder(DEFAULT_TEXT));
         StartCoroutine(AnimateTextRoutine());
         StartCoroutine(AnimateBackgroundRoutine());
+        base.OnEnable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         StopAllCoroutines();
+        base.OnDisable();
+    }
+
+    public override string GetWindowId()
+    {
+        return "LOADING_WINDOW";
     }
 
     public void SetText(StringBuilder text)

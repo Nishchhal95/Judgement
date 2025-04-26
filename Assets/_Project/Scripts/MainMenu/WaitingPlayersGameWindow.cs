@@ -36,6 +36,11 @@ public class WatiingPlayersGameWindow : GameWindow
 
         startGameButton.onClick.RemoveListener(OnStartGamePressed);
 
+        foreach (WaitingPlayerMenuUI playerUI in playerToPlayerUIMap.Values)
+        {
+            Destroy(playerUI.gameObject);
+        }
+        playerToPlayerUIMap.Clear();
     }
     
     private void OnLocalPlayerJoinedRoom()
@@ -91,6 +96,12 @@ public class WatiingPlayersGameWindow : GameWindow
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.LoadLevel(1);
+    }
+
+    public override void Hide()
+    {
+        PhotonNetwork.LeaveRoom();
+        base.Hide();
     }
 
     public override string GetWindowId()

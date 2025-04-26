@@ -12,7 +12,6 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] private Button joinGameButton;
     [SerializeField] private GameInfo gameInfo;
     [SerializeField] private WindowManager windowManager;
-    [SerializeField] private LoadingUI loadingUI;
     
     private void OnEnable()
     {
@@ -49,13 +48,13 @@ public class MainMenuUIController : MonoBehaviour
         ChangeLocalPlayerIcon();
         
         UpdateGameButtonsState();
-
-        loadingUI.gameObject.SetActive(true);
+        
+        windowManager.ShowWindow("LOADING_WINDOW");
     }
     
     private void ConnectedToPhotonLobby()
     {
-        loadingUI.gameObject.SetActive(false);
+        windowManager.HideCurrentWindow();
     }
 
     private void OnPlayerInputFieldValueChanged(string newValue)
